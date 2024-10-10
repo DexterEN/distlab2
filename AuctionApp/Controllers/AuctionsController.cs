@@ -29,9 +29,16 @@ namespace AuctionApp.Controllers
         // GET: AuctionsController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            List<Auctions> auctions = _auctionService.GetMyAuctions("kjdgnjksfn");
+            if (auctions == null)
+            {
+                return BadRequest();
+            }
+            AuctionsDetailsVm auctionsDetailsVm = new AuctionsDetailsVm();
+            auctionsDetailsVm = AuctionsDetailsVm.FromAuctions(auctions[0]);
+            return View(auctionsDetailsVm);
         }
-
+/*
         // GET: AuctionsController/Create
         public ActionResult Create()
         {
@@ -93,6 +100,9 @@ namespace AuctionApp.Controllers
             {
                 return View();
             }
+    
         }
+    */
     }
+    
 }

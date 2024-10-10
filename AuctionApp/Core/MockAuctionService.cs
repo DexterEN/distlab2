@@ -13,7 +13,9 @@ public class MockAuctionService : IAuctionService
 
     public List<Auctions> GetMyAuctions(string userName)
     {
-        throw new NotImplementedException();
+        List<Auctions> auctions = new List<Auctions>();
+        auctions.Add(new Auctions("bil", DateTime.Now, "bil DESCRIPTION", "Joel"));
+        return auctions;
     }
 
     public List<Auctions> GetMyWonAuctions(string userName)
