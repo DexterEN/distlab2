@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Core;
+﻿namespace AuctionApp.Core;
 
 public class Auctions
 {
