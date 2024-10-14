@@ -23,7 +23,7 @@ public class MySqlAuctionPersistence : IAuctionPersistence
     public List<Auction> GetAllOngoingAuctions()
     {
         var projectDbs = _dbContext.AuctionDbs
-            .ToList(); 
+            .Where(a => a.EndDate > DateTime.Now).ToList(); 
 
         List<Auction> result = new List<Auction>();
         foreach(AuctionDb pdb in projectDbs)
@@ -61,11 +61,13 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         }
 
         return project;
-    }
+    }*/
 
-    public void Save(Project project)
+    public void Save(Auction auction)
     {
-        throw new NotImplementedException("Save");
+        AuctionDb adb = _mapper.Map<AuctionDb>(auction);
+        _dbContext.AuctionDbs.Add(adb);
+        _dbContext.SaveChanges();
     }
-    */
+    
 }

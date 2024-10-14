@@ -1,4 +1,5 @@
-﻿using AuctionApp.Core.Interfaces;
+﻿using System.Data;
+using AuctionApp.Core.Interfaces;
 
 namespace AuctionApp.Core;
 
@@ -36,7 +37,12 @@ public class AuctionService : IAuctionService
 
     public void AddAuction(string title, DateTime endDate, string description, string userName)
     {
-        throw new NotImplementedException();
+        if ( title == "" || endDate == null || endDate == DateTime.MinValue || userName == null)
+        {
+            throw new DataException("Auction title, UserName and end date can't be null");
+        }
+        Auction auction = new Auction(title, endDate, description, userName);
+        _auctionPersistence.Save(auction);
     }
 
     public void EditAuctionDescription(string title, string newDescription)

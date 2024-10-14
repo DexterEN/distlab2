@@ -38,7 +38,7 @@ namespace AuctionApp.Controllers
             
             return View(auctionDetailsVm);
         }
-/*
+
         // GET: AuctionsController/Create
         public ActionResult Create()
         {
@@ -48,18 +48,24 @@ namespace AuctionApp.Controllers
         // POST: AuctionsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateAuctionVm createAuctionVm)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _auctionService.AddAuction(createAuctionVm.Title,createAuctionVm.EndDate,createAuctionVm.Description,"dexter");
+                    return RedirectToAction("Index");
+                }
+                return View(createAuctionVm);
             }
-            catch
+            catch(DataException ex)
             {
-                return View();
+                return View(createAuctionVm);
             }
         }
 
+        /*
         // GET: AuctionsController/Edit/5
         public ActionResult Edit(int id)
         {
