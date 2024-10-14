@@ -1,4 +1,5 @@
-﻿using AuctionApp.Persistence;
+﻿using AuctionApp.Core;
+using AuctionApp.Persistence;
 using AutoMapper;
 
 
@@ -8,6 +9,6 @@ public class AuctionProfile : Profile
 {
     public AuctionProfile()
     {
-        CreateMap<AuctionDb, Action>().ReverseMap();
+        CreateMap<AuctionDb, Auction>().ReverseMap();
     }   
 }

@@ -5,6 +5,7 @@ public interface IAuctionService
     List<Auction> GetAllOngoingAuctions(); 
     
     List<Auction> GetMyAuctions(string userName);
+    Auction GetAuctionByID(int id);
     
     List<Auction> GetMyWonAuctions(string userName);
     

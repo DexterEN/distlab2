@@ -23,6 +23,12 @@ public class AuctionService : IAuctionService
         throw new NotImplementedException();
     }
 
+    public Auction GetAuctionByID(int id)
+    {
+        Auction a = _auctionPersistence.GetAuctionById(id);
+        return a;
+    }
+
     public List<Auction> GetMyWonAuctions(string userName)
     {
         throw new NotImplementedException();

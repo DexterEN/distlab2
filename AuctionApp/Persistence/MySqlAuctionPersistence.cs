@@ -34,7 +34,16 @@ public class MySqlAuctionPersistence : IAuctionPersistence
 
         return result;
     }
-/*
+
+    public Auction GetAuctionById(int id)
+    {
+        var projectDbs = _dbContext.AuctionDbs.Where(a => a.Id == id).Include(a => a.Bids)
+            .FirstOrDefault();
+        if (projectDbs == null) throw new DataException("project not found");
+        
+        return _mapper.Map<Auction>(projectDbs);
+    }
+    /*
     public Project GetById(int id, string userName)
     {
         ProjectDb? projectdb = _dbContext.ProjectDbs

@@ -1,3 +1,4 @@
+using System.Data;
 using AuctionApp.Core;
 using AuctionApp.Core.Interfaces;
 using AuctionApp.Models;
@@ -31,13 +32,9 @@ namespace AuctionApp.Controllers
         // GET: AuctionsController/Details/5
         public ActionResult Details(int id)
         {
-            List<Auction> auctions = _auctionService.GetMyAuctions("kjdgnjksfn");
-            if (auctions == null)
-            {
-                return BadRequest();
-            }
+            Auction a = _auctionService.GetAuctionByID(id);
             AuctionDetailsVm auctionDetailsVm = new AuctionDetailsVm();
-            auctionDetailsVm = AuctionDetailsVm.FromAuctions(auctions[0]);
+            auctionDetailsVm = AuctionDetailsVm.FromAuctions(a);
             
             return View(auctionDetailsVm);
         }

@@ -10,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuctionService, AuctionService>();
 builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
-builder.Services.AddAutoMapper(typeof(AuctionProfile), typeof(BidProfile));
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDbContext<AuctionDbContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DbConnection")));
+    options.UseMySQL(builder.Configuration.GetConnectionString("AuctionDbConnection")));
 
 var app = builder.Build();
 
