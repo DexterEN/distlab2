@@ -5,22 +5,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Controllers
 {
-    public class AuctionsController : Controller
+    public class AuctionController : Controller
     {
         private IAuctionService _auctionService;
 
-        public AuctionsController(IAuctionService auctionService)
+        public AuctionController(IAuctionService auctionService)
         {
             _auctionService = auctionService;
         }
+   
+        
         // GET: AuctionsController
         public ActionResult Index()
         {
-            List<Auctions> auctions = _auctionService.GetAllOngoingAuctions();
-            List<AuctionsVm> auctionsVm = new List<AuctionsVm>();
+            List<Auction> auctions = _auctionService.GetAllOngoingAuctions();
+            List<AuctionVm> auctionsVm = new List<AuctionVm>();
             foreach (var auction in auctions)
             {
-                auctionsVm.Add(AuctionsVm.FromAuctions(auction));
+                auctionsVm.Add(AuctionVm.FromAuctions(auction));
             }
             
             return View(auctionsVm);
@@ -29,14 +31,15 @@ namespace AuctionApp.Controllers
         // GET: AuctionsController/Details/5
         public ActionResult Details(int id)
         {
-            List<Auctions> auctions = _auctionService.GetMyAuctions("kjdgnjksfn");
+            List<Auction> auctions = _auctionService.GetMyAuctions("kjdgnjksfn");
             if (auctions == null)
             {
                 return BadRequest();
             }
-            AuctionsDetailsVm auctionsDetailsVm = new AuctionsDetailsVm();
-            auctionsDetailsVm = AuctionsDetailsVm.FromAuctions(auctions[0]);
-            return View(auctionsDetailsVm);
+            AuctionDetailsVm auctionDetailsVm = new AuctionDetailsVm();
+            auctionDetailsVm = AuctionDetailsVm.FromAuctions(auctions[0]);
+            
+            return View(auctionDetailsVm);
         }
 /*
         // GET: AuctionsController/Create

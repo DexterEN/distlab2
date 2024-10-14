@@ -2,11 +2,11 @@
 
 public interface IAuctionService
 {
-    List<Auctions> GetAllOngoingAuctions(); 
+    List<Auction> GetAllOngoingAuctions(); 
     
-    List<Auctions> GetMyAuctions(string userName);
+    List<Auction> GetMyAuctions(string userName);
     
-    List<Auctions> GetMyWonAuctions(string userName);
+    List<Auction> GetMyWonAuctions(string userName);
     
     void AddAuction(string title, DateTime endDate, string description, string userName);
     

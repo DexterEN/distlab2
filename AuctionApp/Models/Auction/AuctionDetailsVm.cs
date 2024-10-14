@@ -2,7 +2,7 @@
 
 namespace AuctionApp.Models;
 
-public class AuctionsDetailsVm
+public class AuctionDetailsVm
 {
     
     [ScaffoldColumn(false)]
@@ -18,20 +18,20 @@ public class AuctionsDetailsVm
     
     public string UserName { get; set; }
     
-    public List<BidVm> Bids { get; set; }
+    public List<BidVm> Bids { get; set; } = new ();
     
     
-    public static AuctionsDetailsVm FromAuctions(Core.Auctions auctions)
+    public static AuctionDetailsVm FromAuctions(Core.Auction auction)
     {
-        var auctionsVm = new AuctionsDetailsVm()
+        var auctionsVm = new AuctionDetailsVm()
         {
-            Id = auctions.Id,
-            Title = auctions.Title,
-            EndDate = auctions.EndDate,
-            Description = auctions.Description,
-            UserName = auctions.UserName
+            Id = auction.Id,
+            Title = auction.Title,
+            EndDate = auction.EndDate,
+            Description = auction.Description,
+            UserName = auction.UserName
         };
-        foreach (var bid in auctions.Bids)
+        foreach (var bid in auction.Bids)
         {
             auctionsVm.Bids.Add(BidVm.FromBid(bid));
         }

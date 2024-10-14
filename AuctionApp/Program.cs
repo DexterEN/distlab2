@@ -1,11 +1,16 @@
 using AuctionApp.Core;
 using AuctionApp.Core.Interfaces;
+using AuctionApp.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IAuctionService, MockAuctionService>();
+
+//builder.Services.AddDbContext<AuctionDbContext>(options =>
+  //  options.UseMySQL(builder.Configuration.GetConnectionString("ProjectDbConnection")));
 
 var app = builder.Build();
 

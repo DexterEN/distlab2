@@ -4,21 +4,24 @@ namespace AuctionApp.Core;
 
 public class MockAuctionService : IAuctionService
 {
-    public List<Auctions> GetAllOngoingAuctions()
+    public List<Auction> GetAllOngoingAuctions()
     {
-        List<Auctions> auctions = new List<Auctions>();
-        auctions.Add(new Auctions("Test", DateTime.Now, "TEST DESCRIPTION", "Dexter"));
+        List<Auction> auctions = new List<Auction>();
+        auctions.Add(new Auction("Test", DateTime.Now, "TEST DESCRIPTION", "Dexter"));
         return auctions;
     }
 
-    public List<Auctions> GetMyAuctions(string userName)
+    public List<Auction> GetMyAuctions(string userName)
     {
-        List<Auctions> auctions = new List<Auctions>();
-        auctions.Add(new Auctions("bil", DateTime.Now, "bil DESCRIPTION", "Joel"));
+        List<Auction> auctions = new List<Auction>();
+        auctions.Add(new Auction("bil", DateTime.Now, "bil DESCRIPTION", "Joel"));
+        auctions[0].AddBid(new Bid(1, "1", DateTime.Now, 100));
+        auctions[0].AddBid(new Bid(1,"1", DateTime.Now, 101));
+        auctions[0].AddBid(new Bid(1,"1", DateTime.Now, 102));
         return auctions;
     }
 
-    public List<Auctions> GetMyWonAuctions(string userName)
+    public List<Auction> GetMyWonAuctions(string userName)
     {
         throw new NotImplementedException();
     }

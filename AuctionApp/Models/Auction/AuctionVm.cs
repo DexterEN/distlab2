@@ -2,7 +2,7 @@
 
 namespace AuctionApp.Models;
 
-public class AuctionsVm
+public class AuctionVm
 {
     [ScaffoldColumn(false)]
     public int Id { get; set; }
@@ -19,15 +19,15 @@ public class AuctionsVm
 
     
     
-    public static AuctionsVm FromAuctions(Core.Auctions auctions)
+    public static AuctionVm FromAuctions(Core.Auction auction)
     {
-        return new AuctionsVm()
+        return new AuctionVm()
         {
-            Id = auctions.Id,
-            Title = auctions.Title,
-            EndDate = auctions.EndDate,
-            Description = auctions.Description,
-            UserName = auctions.UserName
+            Id = auction.Id,
+            Title = auction.Title,
+            EndDate = auction.EndDate,
+            Description = auction.Description,
+            UserName = auction.UserName
         };
     }
     

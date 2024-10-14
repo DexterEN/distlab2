@@ -1,6 +1,6 @@
 ﻿namespace AuctionApp.Core;
 
-public class Auctions
+public class Auction
 {
     public int Id { get; set; }
     public string Title { get; set; }
@@ -11,7 +11,7 @@ public class Auctions
     private List<Bid> _bids = new List<Bid>();
     public IEnumerable<Bid> Bids => _bids;
 
-    public Auctions(string title, DateTime endDate, string description, string userName)
+    public Auction(string title, DateTime endDate, string description, string userName)
     {
         Title = title;
         EndDate = endDate;
@@ -19,7 +19,7 @@ public class Auctions
         UserName = userName;
     }
 
-    public Auctions(int id, string title, DateTime endDate, string description, string userName)
+    public Auction(int id, string title, DateTime endDate, string description, string userName)
     {
         Id = id;
         Title = title;
@@ -28,7 +28,7 @@ public class Auctions
         UserName = userName;
     }
     
-    public Auctions( ){ }
+    public Auction( ){ }
 
     public void AddBid(Bid bid)
     {
