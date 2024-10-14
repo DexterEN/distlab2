@@ -1,4 +1,6 @@
-﻿namespace AuctionApp.Persistence;
+﻿using Microsoft.Build.Evaluation;
+
+namespace AuctionApp.Persistence;
 using System.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
