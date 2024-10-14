@@ -1,5 +1,6 @@
 using AuctionApp.Core;
 using AuctionApp.Core.Interfaces;
+using AuctionApp.Mappers;
 using AuctionApp.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IAuctionService, MockAuctionService>();
+builder.Services.AddScoped<IAuctionService, AuctionService>();
+builder.Services.AddScoped<IAuctionPersistence, MySqlAuctionPersistence>();
+builder.Services.AddAutoMapper(typeof(AuctionProfile), typeof(BidProfile));
 
-//builder.Services.AddDbContext<AuctionDbContext>(options =>
-  //  options.UseMySQL(builder.Configuration.GetConnectionString("ProjectDbConnection")));
+builder.Services.AddDbContext<AuctionDbContext>(options =>
+    options.UseMySQL(builder.Configuration.GetConnectionString("DbConnection")));
 
 var app = builder.Build();
 
