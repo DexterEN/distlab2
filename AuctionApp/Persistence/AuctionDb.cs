@@ -23,6 +23,6 @@ public class AuctionDb
     [MaxLength(128)]
     public string UserName { get; set; }
     
-    private List<BidDb> _bids = new List<BidDb>();
+    public List<BidDb> Bids { get; set; } = new List<BidDb>();
 
 }
