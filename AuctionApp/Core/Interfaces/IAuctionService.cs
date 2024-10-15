@@ -13,6 +13,6 @@ public interface IAuctionService
     
     void EditAuctionDescription(int id, string newDescription);
 
-    void PlaceBid(string title, string userName, DateTime created, int amount);
+    void PlaceBid(int id, string userName, DateTime created, int amount);
     
 }

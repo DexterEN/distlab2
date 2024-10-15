@@ -2,7 +2,16 @@
 
 @{
     ViewData["Title"] = "Details";
+        // Calculate the highest bid amount (or 0 if there are no bids)
+       // var maxBid = Model.Bids.Any() ? Model.Bids.Max(b => b.Amount) : 0;
 }
+@if (TempData["ErrorMessage"] != null)
+{
+<script type="text/javascript">
+    alert('@TempData["ErrorMessage"]');
+</script>
+}
+
 
 <h1>Details</h1>
 
@@ -59,24 +68,38 @@
         <tbody>
         @foreach (var item in Model.Bids)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+            </tr>
         }
         </tbody>
     </table>
 </div>
+<div>
+    <h4>Place a Bid</h4>
+    <form asp-action="PlaceBid" method="post">
+        <!-- Hidden field for Auction ID -->
+        <input type="hidden" name="AuctionId" value="@Model.Id"/>
+
+        <div class="form-group">
+            <label for="BidAmount">Your Bid Amount:</label>
+            <input type="number" name="BidAmount" class="form-control" required min="1" step="1" placeholder="Enter bid amount"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Bid</button>
+    </form>
+</div>
 
 
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>

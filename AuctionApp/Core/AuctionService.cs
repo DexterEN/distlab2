@@ -67,8 +67,12 @@ public class AuctionService : IAuctionService
         _auctionPersistence.EditDescription(id, newDescription);
     }
 
-    public void PlaceBid(string title, string userName, DateTime created, int amount)
+    public void PlaceBid(int id, string userName, DateTime created, int amount)
     {
-        throw new NotImplementedException();
+        if (amount <0 || created == DateTime.MinValue || userName == null )
+        {
+            throw new DataException("Bid or UserName Cant't be null");
+        }   
+        _auctionPersistence.PlaceBid(id, userName, created, amount);
     }
 }

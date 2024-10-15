@@ -61,8 +61,8 @@ namespace AuctionApp.Controllers
             AuctionDetailsVm auctionDetailsVm = new AuctionDetailsVm();
             auctionDetailsVm = AuctionDetailsVm.FromAuctions(a);
 
-            auctionDetailsVm.Bids
-                .OrderBy(b => b.Amount)
+            auctionDetailsVm.Bids = auctionDetailsVm.Bids
+                .OrderByDescending(b => b.Amount)
                 .ToList();
             
             return View(auctionDetailsVm);
@@ -130,6 +130,45 @@ namespace AuctionApp.Controllers
             catch
             {
                 return View(auctionEditVm);
+            }
+        }
+        
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PlaceBid(int auctionId, int bidAmount)
+        {
+            try
+            {
+                Auction a = _auctionService.GetAuctionByID(auctionId);
+                if (User.Identity.Name == a.UserName)
+                {
+                    TempData["ErrorMessage"] = "Cant Bid on your own auction.";
+                    return RedirectToAction("Details", new { id = auctionId });
+                }
+                
+                var max = 0;
+                if (a.Bids != null && a.Bids.Any())
+                {
+                    max = a.Bids.Max(b => b.Amount);
+                }
+                // Ensure the bid amount is valid
+                if (bidAmount <= 0 || bidAmount < max)
+                {
+                    TempData["ErrorMessage"] = "Bid amount must be greater than 0 and current highest bid";
+                    return RedirectToAction("Details", new { id = auctionId });
+                }
+
+                // Add the bid using the auction service
+                _auctionService.PlaceBid(auctionId, User.Identity.Name, DateTime.Now ,bidAmount);
+
+                return RedirectToAction("Details", new { id = auctionId });
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions that may occur
+                TempData["ErrorMessage"] = "An error occurred while placing your bid. "+ex.Message;
+                return RedirectToAction("Details", new { id = auctionId });
             }
         }
 

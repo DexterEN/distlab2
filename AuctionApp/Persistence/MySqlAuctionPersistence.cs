@@ -86,10 +86,36 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         adb.Description = newDescription;
         _dbContext.SaveChanges();
     }
-    
+
+    public void PlaceBid(int id, string userName, DateTime created, int amount)
+    {
+        var auction = _dbContext.AuctionDbs.FirstOrDefault(a => a.Id == id);
+        
+        if (auction == null)
+        {
+            throw new Exception("Auction not found.");
+        }
+
+        // Create a new BidDb object
+        var bid = new BidDb
+        {
+            Amount = amount,
+            UserName = userName,
+            Created = created,
+            AuctionId = id
+        };
+
+        // Add the new bid to the database
+        _dbContext.BidDbs.Add(bid);
+
+        // Save changes to persist the bid
+        _dbContext.SaveChanges();
+    }
+
     public void Save(Auction auction)
     {
         AuctionDb adb = _mapper.Map<AuctionDb>(auction);
+        
         _dbContext.AuctionDbs.Add(adb);
         _dbContext.SaveChanges();
     }

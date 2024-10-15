@@ -8,5 +8,5 @@ public interface IAuctionPersistence
     Auction GetAuctionById(int id);
     void Save(Auction auction);
     public void EditDescription(int id, String newDescription);
-    
+    void PlaceBid(int id, string userName, DateTime created, int amount);
 }
