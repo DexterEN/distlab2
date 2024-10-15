@@ -45,9 +45,14 @@ public class AuctionService : IAuctionService
         _auctionPersistence.Save(auction);
     }
 
-    public void EditAuctionDescription(string title, string newDescription)
+    public void EditAuctionDescription(int id, string newDescription)
     {
-        throw new NotImplementedException();
+        if (newDescription == null)
+        {
+            throw new DataException("Description can't be null");
+        }
+        
+        _auctionPersistence.EditDescription(id, newDescription);
     }
 
     public void PlaceBid(string title, string userName, DateTime created, int amount)

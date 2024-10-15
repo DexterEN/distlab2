@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
+@if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        alert('@TempData["ErrorMessage"]');
+    </script>
+}
 
 <h1>Ongoing auctions</h1>
 
@@ -43,9 +49,8 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                <!--@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })-->
+                @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id })
             </td>
         </tr>
 }

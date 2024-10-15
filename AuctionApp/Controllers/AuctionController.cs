@@ -20,14 +20,13 @@ namespace AuctionApp.Controllers
         
         // GET: AuctionsController
         public ActionResult Index()
-        {
+        { 
             List<Auction> auctions = _auctionService.GetAllOngoingAuctions();
-            List<AuctionVm> auctionsVm = new List<AuctionVm>();
-            foreach (var auction in auctions)
-            {
-                auctionsVm.Add(AuctionVm.FromAuctions(auction));
-            }
-            
+           List<AuctionVm> auctionsVm = auctions
+               .Select(a => AuctionVm.FromAuctions(a))
+               .OrderBy(a => a.EndDate)  
+               .ToList();
+           
             return View(auctionsVm);
         }
 
@@ -37,6 +36,10 @@ namespace AuctionApp.Controllers
             Auction a = _auctionService.GetAuctionByID(id);
             AuctionDetailsVm auctionDetailsVm = new AuctionDetailsVm();
             auctionDetailsVm = AuctionDetailsVm.FromAuctions(a);
+
+            auctionDetailsVm.Bids
+                .OrderBy(b => b.Amount)
+                .ToList();
             
             return View(auctionDetailsVm);
         }
@@ -67,50 +70,45 @@ namespace AuctionApp.Controllers
             }
         }
 
-        /*
+        
         // GET: AuctionsController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            
+            Auction a = _auctionService.GetAuctionByID(id);
+            if (User.Identity.Name == a.UserName)
+            {
+                AuctionEditVm auctionEditVm = new AuctionEditVm();
+                auctionEditVm = AuctionEditVm.FromAuctions(a);
+            
+                return View(auctionEditVm);
+            }
+            TempData["ErrorMessage"] = "You are not authorized to edit this auction.";
+            return RedirectToAction("Index");
         }
 
         // POST: AuctionsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, AuctionEditVm auctionEditVm)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+              
+                if (ModelState.IsValid)
+                {
+                    _auctionService.EditAuctionDescription(id, auctionEditVm.Description);
+                    return RedirectToAction("Index");
+                }
+
+                return View(auctionEditVm);
             }
             catch
             {
-                return View();
+                return View(auctionEditVm);
             }
         }
 
-        // GET: AuctionsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AuctionsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-    
-        }
-    */
     }
     
 }

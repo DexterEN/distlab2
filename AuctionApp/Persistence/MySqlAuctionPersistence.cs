@@ -45,6 +45,20 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         
         return _mapper.Map<Auction>(projectDbs);
     }
+
+    public void EditDescription(int id, String newDescription)
+    {
+        AuctionDb adb = _dbContext.AuctionDbs.Find(id);
+        adb.Description = newDescription;
+        _dbContext.SaveChanges();
+    }
+    
+    public void Save(Auction auction)
+    {
+        AuctionDb adb = _mapper.Map<AuctionDb>(auction);
+        _dbContext.AuctionDbs.Add(adb);
+        _dbContext.SaveChanges();
+    }
     /*
     public Project GetById(int id, string userName)
     {
@@ -64,12 +78,5 @@ public class MySqlAuctionPersistence : IAuctionPersistence
 
         return project;
     }*/
-
-    public void Save(Auction auction)
-    {
-        AuctionDb adb = _mapper.Map<AuctionDb>(auction);
-        _dbContext.AuctionDbs.Add(adb);
-        _dbContext.SaveChanges();
-    }
     
 }
