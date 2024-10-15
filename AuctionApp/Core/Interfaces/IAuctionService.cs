@@ -7,7 +7,7 @@ public interface IAuctionService
     List<Auction> GetMyAuctions(string userName);
     Auction GetAuctionByID(int id);
     
-    List<Auction> GetMyWonAuctions(string userName);
+    List<Auction> GetWonAuctions(string userName);
     
     void AddAuction(string title, DateTime endDate, string description, string userName);
     

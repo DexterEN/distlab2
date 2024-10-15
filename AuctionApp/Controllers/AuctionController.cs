@@ -29,7 +29,31 @@ namespace AuctionApp.Controllers
            
             return View(auctionsVm);
         }
-
+        
+        // GET: AuctionsController/MyBids/
+        public ActionResult MyBids()
+        { 
+            List<Auction> auctions = _auctionService.GetMyAuctions(User.Identity.Name);
+            List<AuctionVm> auctionsVm = auctions
+                .Select(a => AuctionVm.FromAuctions(a))
+                .OrderBy(a => a.EndDate)  
+                .ToList();
+           
+            return View(auctionsVm);
+        }
+        
+        // GET: AuctionsController/WonAuctions/
+        public ActionResult WonAuctions()
+        { 
+            List<Auction> auctions = _auctionService.GetWonAuctions(User.Identity.Name);
+            List<AuctionVm> auctionsVm = auctions
+                .Select(a => AuctionVm.FromAuctions(a))
+                .OrderBy(a => a.EndDate)  
+                .ToList();
+           
+            return View(auctionsVm);
+        }
+        
         // GET: AuctionsController/Details/5
         public ActionResult Details(int id)
         {

@@ -21,7 +21,13 @@ public class AuctionService : IAuctionService
 
     public List<Auction> GetMyAuctions(string userName)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(userName))
+        {
+            throw new DataException("UserName can't be null or empty");
+        }
+        
+        List<Auction> auctions =  _auctionPersistence.GetMyBidAuctions(userName);
+        return auctions;
     }
 
     public Auction GetAuctionByID(int id)
@@ -30,9 +36,15 @@ public class AuctionService : IAuctionService
         return a;
     }
 
-    public List<Auction> GetMyWonAuctions(string userName)
+    public List<Auction> GetWonAuctions(string userName)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(userName))
+        {
+            throw new DataException("UserName can't be null or empty");
+        }
+        
+        List<Auction> auctions =  _auctionPersistence.GetMyWonAuctions(userName);
+        return auctions;
     }
 
     public void AddAuction(string title, DateTime endDate, string description, string userName)
