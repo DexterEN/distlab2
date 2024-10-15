@@ -2,10 +2,12 @@ using System.Data;
 using AuctionApp.Core;
 using AuctionApp.Core.Interfaces;
 using AuctionApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuctionApp.Controllers
 {
+    [Authorize]
     public class AuctionController : Controller
     {
         private IAuctionService _auctionService;
@@ -54,7 +56,7 @@ namespace AuctionApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _auctionService.AddAuction(createAuctionVm.Title,createAuctionVm.EndDate,createAuctionVm.Description,"dexter");
+                    _auctionService.AddAuction(createAuctionVm.Title,createAuctionVm.EndDate,createAuctionVm.Description, User.Identity.Name);
                     return RedirectToAction("Index");
                 }
                 return View(createAuctionVm);
