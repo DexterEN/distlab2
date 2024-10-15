@@ -133,7 +133,7 @@ namespace AuctionApp.Controllers
             }
         }
         
-        
+        // POST: AuctionsController/PlaceBid/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult PlaceBid(int auctionId, int bidAmount)
