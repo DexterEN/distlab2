@@ -15,4 +15,8 @@ public class CreateAuctionVm
     [Required]
     public string Description { get; set; }
     
+    [Required]
+    [Range(1, int.MaxValue, ErrorMessage = "MinPrice must be greater than 0.")]
+    public int MinPrice { get; set; }
+    
 }

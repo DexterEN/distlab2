@@ -24,5 +24,9 @@ public class AuctionDb
     public string UserName { get; set; }
     
     public List<BidDb> Bids { get; set; } = new List<BidDb>();
+    
+    [Required]
+    [Range(1, int.MaxValue)]
+    public int MinPrice { get; set; }
 
 }

@@ -10,22 +10,26 @@ public class Auction
     
     private List<Bid> _bids = new List<Bid>();
     public IEnumerable<Bid> Bids => _bids;
+    
+    public int MinPrice { get; set; }
 
-    public Auction(string title, DateTime endDate, string description, string userName)
+    public Auction(string title, DateTime endDate, string description, string userName, int minPrice)
     {
         Title = title;
         EndDate = endDate;
         Description = description;
         UserName = userName;
+        MinPrice = minPrice;
     }
 
-    public Auction(int id, string title, DateTime endDate, string description, string userName)
+    public Auction(int id, string title, DateTime endDate, string description, string userName, int minPrice)
     {
         Id = id;
         Title = title;
         EndDate = endDate;  
         Description = description;
         UserName = userName;
+        MinPrice = minPrice;
     }
     
     public Auction( ){ }

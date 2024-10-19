@@ -9,6 +9,7 @@ public class BidDb
     public int Id { get; set; }
 
     [Required]
+    [Range(1, int.MaxValue)]
     public int Amount { get; set; }
     
     [Required]

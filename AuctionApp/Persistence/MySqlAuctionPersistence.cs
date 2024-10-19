@@ -95,8 +95,7 @@ public class MySqlAuctionPersistence : IAuctionPersistence
         {
             throw new Exception("Auction not found.");
         }
-
-        // Create a new BidDb object
+        
         var bid = new BidDb
         {
             Amount = amount,
@@ -104,11 +103,9 @@ public class MySqlAuctionPersistence : IAuctionPersistence
             Created = created,
             AuctionId = id
         };
-
-        // Add the new bid to the database
+        
         _dbContext.BidDbs.Add(bid);
-
-        // Save changes to persist the bid
+        
         _dbContext.SaveChanges();
     }
 

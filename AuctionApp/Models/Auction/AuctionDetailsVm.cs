@@ -20,6 +20,9 @@ public class AuctionDetailsVm
     
     public List<BidVm> Bids { get; set; } = new ();
     
+    public int MinPrice { get; set; }
+
+    
     
     public static AuctionDetailsVm FromAuctions(Core.Auction auction)
     {
@@ -29,7 +32,8 @@ public class AuctionDetailsVm
             Title = auction.Title,
             EndDate = auction.EndDate,
             Description = auction.Description,
-            UserName = auction.UserName
+            UserName = auction.UserName,
+            MinPrice = auction.MinPrice
         };
         foreach (var bid in auction.Bids)
         {

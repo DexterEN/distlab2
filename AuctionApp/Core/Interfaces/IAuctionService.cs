@@ -9,7 +9,7 @@ public interface IAuctionService
     
     List<Auction> GetWonAuctions(string userName);
     
-    void AddAuction(string title, DateTime endDate, string description, string userName);
+    void AddAuction(string title, DateTime endDate, string description, string userName, int minPrice);
     
     void EditAuctionDescription(int id, string newDescription);
 

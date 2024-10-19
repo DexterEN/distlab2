@@ -83,7 +83,7 @@ namespace AuctionApp.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _auctionService.AddAuction(createAuctionVm.Title,createAuctionVm.EndDate,createAuctionVm.Description, User.Identity.Name);
+                    _auctionService.AddAuction(createAuctionVm.Title,createAuctionVm.EndDate,createAuctionVm.Description, User.Identity.Name, createAuctionVm.MinPrice);
                     return RedirectToAction("Index");
                 }
                 return View(createAuctionVm);
@@ -152,14 +152,14 @@ namespace AuctionApp.Controllers
                 {
                     max = a.Bids.Max(b => b.Amount);
                 }
-                // Ensure the bid amount is valid
-                if (bidAmount <= 0 || bidAmount < max)
+                
+                if (bidAmount <= 0 || bidAmount < max || bidAmount < a.MinPrice)
                 {
-                    TempData["ErrorMessage"] = "Bid amount must be greater than 0 and current highest bid";
+                    TempData["ErrorMessage"] = "Bid amount must be greater than 0, current highest bid and min price.";
                     return RedirectToAction("Details", new { id = auctionId });
                 }
 
-                // Add the bid using the auction service
+                
                 _auctionService.PlaceBid(auctionId, User.Identity.Name, DateTime.Now ,bidAmount);
 
                 return RedirectToAction("Details", new { id = auctionId });

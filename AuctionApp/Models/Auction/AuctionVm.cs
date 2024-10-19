@@ -17,7 +17,7 @@ public class AuctionVm
     
     public string UserName { get; set; }
 
-    
+    public int MinPrice { get; set; }
     
     public static AuctionVm FromAuctions(Core.Auction auction)
     {
@@ -27,7 +27,8 @@ public class AuctionVm
             Title = auction.Title,
             EndDate = auction.EndDate,
             Description = auction.Description,
-            UserName = auction.UserName
+            UserName = auction.UserName,
+            MinPrice = auction.MinPrice
         };
     }
     

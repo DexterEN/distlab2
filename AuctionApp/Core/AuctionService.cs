@@ -23,7 +23,7 @@ public class AuctionService : IAuctionService
     {
         if (string.IsNullOrEmpty(userName))
         {
-            throw new DataException("UserName can't be null or empty");
+            throw new DataException("UserName can't be null or empty.");
         }
         
         List<Auction> auctions =  _auctionPersistence.GetMyBidAuctions(userName);
@@ -40,20 +40,22 @@ public class AuctionService : IAuctionService
     {
         if (string.IsNullOrEmpty(userName))
         {
-            throw new DataException("UserName can't be null or empty");
+            throw new DataException("UserName can't be null or empty.");
         }
         
         List<Auction> auctions =  _auctionPersistence.GetMyWonAuctions(userName);
         return auctions;
     }
 
-    public void AddAuction(string title, DateTime endDate, string description, string userName)
+    public void AddAuction(string title, DateTime endDate, string description, string userName, int minPrice)
     {
-        if ( title == "" || endDate == null || endDate == DateTime.MinValue || userName == null)
-        {
-            throw new DataException("Auction title, UserName and end date can't be null");
-        }
-        Auction auction = new Auction(title, endDate, description, userName);
+        if (minPrice <= 0) { throw new DataException("Min price can't be less than or equal to 0."); }
+        
+        if (endDate == DateTime.MinValue) { throw new DataException("EndDate can't be min value."); }
+        
+        if (string.IsNullOrEmpty(title) || userName == null || description == null) { throw new DataException("Auction title, UserName, Descrtiption and end date can't be null."); }
+        
+        Auction auction = new Auction(title, endDate, description, userName, minPrice);
         _auctionPersistence.Save(auction);
     }
 
@@ -61,7 +63,7 @@ public class AuctionService : IAuctionService
     {
         if (newDescription == null)
         {
-            throw new DataException("Description can't be null");
+            throw new DataException("Description can't be null.");
         }
         
         _auctionPersistence.EditDescription(id, newDescription);
@@ -69,10 +71,12 @@ public class AuctionService : IAuctionService
 
     public void PlaceBid(int id, string userName, DateTime created, int amount)
     {
-        if (amount <0 || created == DateTime.MinValue || userName == null )
-        {
-            throw new DataException("Bid or UserName Cant't be null");
-        }   
+        if (created == DateTime.MinValue) { throw new DataException("Created can't be min value."); }
+        
+        if (amount <= 0) { throw new DataException("Amount cant't be less than or equal to 0."); }
+        
+        if ( userName == null ) { throw new DataException("UserName Cant't be null."); }   
+        
         _auctionPersistence.PlaceBid(id, userName, created, amount);
     }
 }

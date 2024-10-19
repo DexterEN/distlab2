@@ -43,6 +43,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserName)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MinPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MinPrice)
+        </dd>
     </dl>
 </div>
 
@@ -92,7 +98,7 @@
 
             <div class="form-group">
                 <label for="BidAmount">Your Bid Amount:</label>
-                <input type="number" name="BidAmount" class="form-control" required min="1" step="1" placeholder="Enter bid amount"/>
+                <input type="number" name="BidAmount" class="form-control" required min=@Model.MinPrice step="1" placeholder="Enter bid amount"/>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit Bid</button>
